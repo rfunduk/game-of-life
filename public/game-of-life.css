@@ -1,0 +1,37 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  background: #DDD;
+}
+
+body {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+  margin: 0 auto;
+  margin-top: 5px;
+  padding: 0;
+  background: white;
+}
+
+#controls {
+  position: fixed;
+  bottom: 0;
+  height: 45px;
+  width: 100%;
+  text-align: center;
+  background: #DDD;
+  line-height: 40px;
+}
+
+#controls button {
+  font-size: 20px;
+}
+#controls select {
+  font-size: 28px;
+}

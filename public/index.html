@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Game of Life</title>
+    <link rel='stylesheet' type='text/css' href='/game-of-life.css'>
+  </head>
+  <body>
+    <canvas></canvas>
+    <div id='controls'>
+      <button id='clear'>Clear</button>
+      <button id='next-step'>Next Step</button>
+      <button id='auto-step'>Auto Step</button>
+      <select id='presets'>
+        <option value='-'>-- Presets --</option>
+        <option value='spaceship'>Space Ship</option>
+        <option value='glider'>Glider</option>
+        <option value='gliderGun'>Glider Gun</option>
+        <option value='infinite1'>Infinite 1</option>
+        <option value='infinite2'>Infinite 2</option>
+        <option value='infinite3'>Infinite 3</option>
+        <option value='pulsar'>Pulsar</option>
+        <option value='beehive'>Beehive</option>
+      </select>
+    </div>
+    <script src='/utils.js'></script>
+    <script src='/game-of-life.js'></script>
+    <script src='/setup.js'></script>
+  </body>
+</html>
