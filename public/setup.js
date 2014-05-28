@@ -37,6 +37,7 @@ document.addEventListener( 'DOMContentLoaded', function() {
   var autoStep = document.getElementById('auto-step');
   var clear = document.getElementById('clear');
   var presets = document.getElementById('presets');
+  var toroidal = document.getElementById('toroidal');
 
   clear.addEventListener( 'click', reset );
   nextStep.addEventListener( 'click', function() { window.gol.update(); } );
@@ -45,6 +46,7 @@ document.addEventListener( 'DOMContentLoaded', function() {
       nextStep.disabled = '';
       clear.disabled = '';
       presets.disabled = '';
+      toroidal.disabled = '';
       autoStep.innerHTML = 'Auto Step';
       autoStep.className = '';
       window.gol.autoUpdate( false );
@@ -55,6 +57,7 @@ document.addEventListener( 'DOMContentLoaded', function() {
       nextStep.disabled = 'disabled';
       clear.disabled = 'disabled';
       presets.disabled = 'disabled';
+      toroidal.disabled = 'disabled';
       window.gol.autoUpdate( true );
     }
   } );
@@ -63,6 +66,10 @@ document.addEventListener( 'DOMContentLoaded', function() {
       window.gol.loadPreset( presets.value );
     }
     presets.value = '-';
+  } );
+
+  toroidal.addEventListener( 'change', function() {
+    window.gol.toroidal = toroidal.checked;
   } );
 
   window.addEventListener( 'resize', debounce(reset, 750), false );

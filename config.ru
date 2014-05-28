@@ -20,7 +20,8 @@ app = -> env do
   elsif request.path == '/step'
     grid = Grid.new(
       width: params['width'].to_i,
-      height: params['height'].to_i
+      height: params['height'].to_i,
+      toroidal: params['toroidal'] == 'true'
     )
     grid.decode( params['data'] )
     grid.step!

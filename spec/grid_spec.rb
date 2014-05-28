@@ -50,13 +50,24 @@ describe Grid do
   end
 
   describe '#step' do
-    subject { Grid.new( width: 3, height: 3 ) }
-    before { subject.decode( "010\n010\n010" ) }
+    subject { Grid.new( width: 5, height: 5 ) }
+    before { subject.decode( "00000\n00100\n00100\n00100\n00000" ) }
 
     it 'should apply cell rules' do
       subject.step!
       cells = subject.encode
-      expect(cells).to eq "000\n111\n000"
+      expect(cells).to eq "00000\n00000\n01110\n00000\n00000"
+    end
+  end
+
+  describe 'toroidal' do
+    subject { Grid.new( width: 5, height: 5, toroidal: true ) }
+    before { subject.decode( "00100\n00100\n00000\n00000\n00100" ) }
+
+    it 'should wrap around the world' do
+      subject.step!
+      cells = subject.encode
+      expect(cells).to eq "01110\n00000\n00000\n00000\n00000"
     end
   end
 end

@@ -6,7 +6,8 @@ class Grid
   attr_accessor :width, :height
   attr_reader :cells
 
-  def initialize( width: 100, height: 100 )
+  def initialize( width: 100, height: 100, toroidal: false )
+    @toroidal = toroidal
     @width = width
     @height = height
     @cells = (0...height).map { (0...width).map { Cell.new } }
@@ -36,20 +37,25 @@ class Grid
     new_cells = deep_copy
     @cells.each_with_index do |row, y|
       row.each_with_index do |cell, x|
-        # generate a search grid, starting at one cell up-let
-        # and going to one cell down-right
-        start_x, end_x = [x-1, 0].max, [x+1, width-1].min
-        start_y, end_y = [y-1, 0].max, [y+1, height-1].min
+        neighbors = (y-1..y+1).map do |yn|
+          (x-1..x+1).map do |xn|
+            # skip the cell trying to decide (x,y)
+            next if xn == x && yn == y
 
-        neighbors = (start_y..end_y).map do |yn|
-          (start_x..end_x).map do |xn|
-            # skip the cell deciding if it lives or dies
-            # so that it doesn't count itself as a neighbor
-            cell_at(xn, yn) unless xn == x && yn == y
+            # adjust for toroidal grid if applicable
+            if @toroidal
+              xn %= width
+              yn %= height
+            else
+              next if xn >= width || xn < 0
+              next if yn >= height || yn < 0
+            end
+
+            cell_at(xn, yn)
           end
-        end
-        live_count = neighbors.flatten.compact.select(&:alive?).count
+        end.flatten.compact
 
+        live_count = neighbors.select(&:alive?).count
         cell_at(x, y, new_cells).adjust_for_neighbors live_count
       end
     end
